@@ -1,0 +1,26 @@
+app:
+  name: MyApp
+
+debug: true
+
+logging:
+  level:
+    root: INFO
+    org.hibernate: ERROR
+
+
+#server.context-path=/
+#server.servlet-path=/ser
+
+
+# HTTP encoding (HttpEncodingProperties)
+spring:
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+
+# JERSEY (JerseyProperties)
+#spring.jersey.application-path=/app
