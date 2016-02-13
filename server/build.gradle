@@ -1,0 +1,53 @@
+buildscript {
+    ext {
+        springBootVersion = '1.3.2.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+if (!hasProperty('buildProfile')) ext.buildProfile = 'dev'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'war'
+apply plugin: 'spring-boot'
+apply plugin: 'application'
+
+jar {
+    baseName = "${appName}"
+    version = "${appVersion}"
+}
+
+war {
+    baseName = "${appName}"
+    version = "${appVersion}"
+    from 'src/main/webapp' // adds a file-set to the root of the archive
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    providedRuntime
+    compile.exclude module: "spring-boot-starter-tomcat"
+}
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-web')
+//    compile("org.springframework.boot:spring-boot-starter-security")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile("org.springframework.boot:spring-boot-starter-undertow:1.3.2.RELEASE")
+    testCompile("junit:junit")
+}
+
+apply from: "profile-${buildProfile}.gradle"

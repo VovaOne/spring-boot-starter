@@ -1,0 +1,27 @@
+buildscript {
+    ext {
+        appName = 'dev-spring-boot-starter'
+        appVersion = ''
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.springframework:springloaded:1.2.0.RELEASE'
+    }
+}
+
+mainClassName = "com.example.AppDev"
+applicationDefaultJvmArgs = ["-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5007"]
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-devtools")
+    compile("com.h2database:h2")
+    compile("org.postgresql:postgresql:9.4-1206-jdbc42")
+}
+
+
+bootRun {
+    addResources = true
+    args = ["--spring.profiles.active=dev"]
+}

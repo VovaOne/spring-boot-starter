@@ -1,0 +1,13 @@
+mainClassName = "com.example.App"
+
+dependencies {
+
+}
+
+task copyWeb(dependsOn: tasks.getByPath(':web:build'), type: Copy) {
+    from project(':web').file('build')
+    into "${project(':server').buildDir}/resources/main/static"
+}
+war.dependsOn copyWeb
+jar.dependsOn copyWeb
+
